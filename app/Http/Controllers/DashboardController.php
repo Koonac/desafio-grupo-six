@@ -51,7 +51,6 @@ class DashboardController extends Controller
 		$receitaLiquidaUSD = $this->metricasPedidosService->getReceitaLiquidaUSD();
 		$receitaLiquidaBRL = $this->metricasPedidosService->getReceitaLiquidaBRL();
 		$produtoMaisVendido = $this->metricasProdutosPedidosService->getProdutoMaisVendido();
-
 		$produtoMaisFaturado = $this->metricasProdutosPedidosService->getProdutoMaisFaturado();
 
 		return view('dashboard', compact(
@@ -70,7 +69,6 @@ class DashboardController extends Controller
 			'receitaLiquidaUSD',
 			'receitaLiquidaBRL',
 			'produtoMaisVendido',
-
 			'produtoMaisFaturado'
 		));
 	}
