@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Orders\OrdersService;
+use App\Services\Pedidos\PedidosService;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
 	/**
-	 * @var OrdersService
+	 * @var PedidosService
 	 */
-	private OrdersService $ordersService;
+	private PedidosService $pedidosService;
 
 	/**
 	 * Construtor da classe
 	 */
-	public function __construct(OrdersService $ordersService)
+	public function __construct(PedidosService $pedidosService)
 	{
-		$this->ordersService = $ordersService;
+		$this->pedidosService = $pedidosService;
 	}
 
 	/**
@@ -27,9 +27,19 @@ class DashboardController extends Controller
 	 */
 	public function index(): View
 	{
-		$orders = $this->ordersService->getOrders();
-		$totalOrders = $this->ordersService->getTotalOrders();
-
-		return view('dashboard', compact('orders', 'totalOrders'));
+		$pedidos = $this->pedidosService->getPedidos();
+		$totalPedidos = $this->pedidosService->getTotalPedidos();
+		$totalReembolsos = $this->pedidosService->getTotalReembolsos();
+		$totalClientesUnicos = $this->pedidosService->getTotalClientesUnicos();
+		$produtoMaisVendido = $this->pedidosService->getProdutoMaisVendido();
+		$produtoMaisFaturado = $this->pedidosService->getProdutoMaisFaturado();
+		return view('dashboard', compact(
+			'pedidos',
+			'totalPedidos',
+			'totalReembolsos',
+			'totalClientesUnicos',
+			'produtoMaisVendido',
+			'produtoMaisFaturado'
+		));
 	}
 }

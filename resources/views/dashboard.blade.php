@@ -17,13 +17,14 @@
     @endif
 </head>
 <body class="bg-linear-to-r from-[#0f75bd] to-[#041f33] text-white flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-    <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
-    </header>
     <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
-        <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
+        <main class="flex w-full ">
             <h1>Olá mundo</h1>
-            <pre>
-                {{ $totalOrders }}
+            <pre class="w-full whitespace-pre-wrap">
+            {{ dd($produtoMaisFaturado) }}
+            {{ $totalPedidos }}
+            {{ $totalReembolsos }}
+            {{ $totalClientesUnicos }}
             </pre>
         </main>
     </div>
