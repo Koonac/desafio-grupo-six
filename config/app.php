@@ -123,4 +123,5 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'cotacao_dolar' => env('COTACAO_DOLAR', 5.40),
 ];

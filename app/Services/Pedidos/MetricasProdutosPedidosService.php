@@ -60,7 +60,7 @@ class MetricasProdutosPedidosService
 		foreach ($this->getProdutosVendidos() as $produto) {
 			if (!isset($produtos[$produto['sku']])) {
 				$produtos[$produto['sku']] = [
-					'name' => $produto['name'],
+					'title' => $produto['title'],
 					'sku' => $produto['sku'],
 					'quantity' => 0,
 					'price' => 0
@@ -92,7 +92,7 @@ class MetricasProdutosPedidosService
 		foreach ($this->getProdutosVendidos() as $produto) {
 			if (!isset($produtos[$produto['sku']])) {
 				$produtos[$produto['sku']] = [
-					'name' => $produto['name'],
+					'title' => $produto['title'],
 					'sku' => $produto['sku'],
 					'quantity' => 0,
 					'price' => 0

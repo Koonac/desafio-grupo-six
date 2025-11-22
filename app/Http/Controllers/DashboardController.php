@@ -38,16 +38,39 @@ class DashboardController extends Controller
 	{
 		$pedidos = $this->metricasPedidosService->getPedidos();
 		$totalPedidos = $this->metricasPedidosService->getTotalPedidos();
-		$totalReembolsos = $this->metricasPedidosService->getTotalReembolsos();
+		$totalReceitaUSD = $this->metricasPedidosService->getTotalReceitaUSD();
+		$totalReceitaBRL = $this->metricasPedidosService->getTotalReceitaBRL();
+		$totalPedidosEntregues = $this->metricasPedidosService->getTotalPedidosEntregues();
+		$taxaPedidosEntregues = $this->metricasPedidosService->getTaxaPedidosEntregues();
 		$totalClientesUnicos = $this->metricasPedidosService->getTotalClientesUnicos();
+		$mediaPedidosPorCliente = $this->metricasPedidosService->getMediaPedidosPorCliente();
+		$totalReembolsosUSD = $this->metricasPedidosService->getTotalReembolsosUSD();
+		$totalReembolsosBRL = $this->metricasPedidosService->getTotalReembolsosBRL();
+		$taxaReembolso = $this->metricasPedidosService->getTaxaReembolso();
+		$totalPedidosReembolsados = $this->metricasPedidosService->getTotalPedidosReembolsados();
+		$receitaLiquidaUSD = $this->metricasPedidosService->getReceitaLiquidaUSD();
+		$receitaLiquidaBRL = $this->metricasPedidosService->getReceitaLiquidaBRL();
 		$produtoMaisVendido = $this->metricasProdutosPedidosService->getProdutoMaisVendido();
+
 		$produtoMaisFaturado = $this->metricasProdutosPedidosService->getProdutoMaisFaturado();
+
 		return view('dashboard', compact(
 			'pedidos',
 			'totalPedidos',
-			'totalReembolsos',
+			'totalReceitaUSD',
+			'totalReceitaBRL',
+			'totalPedidosEntregues',
+			'taxaPedidosEntregues',
 			'totalClientesUnicos',
+			'mediaPedidosPorCliente',
+			'totalReembolsosBRL',
+			'totalReembolsosUSD',
+			'taxaReembolso',
+			'totalPedidosReembolsados',
+			'receitaLiquidaUSD',
+			'receitaLiquidaBRL',
 			'produtoMaisVendido',
+
 			'produtoMaisFaturado'
 		));
 	}

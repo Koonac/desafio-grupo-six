@@ -52,6 +52,25 @@ class MetricasPedidosService
 	}
 
 	/**
+	 * Obtém a receita total em USD
+	 * 
+	 * @return string
+	 */
+	public function getTotalReceitaUSD(): string
+	{
+		return '$ ' . number_format($this->getTotalReceita(), 2, '.', ',');
+	}
+
+	/**
+	 * Obtém a receita total em BRL
+	 * 
+	 * @return string
+	 */
+	public function getTotalReceitaBRL(): string
+	{
+		return 'R$ ' . number_format($this->getTotalReceita() * config('app.cotacao_dolar'), 2, ',', '.');
+	}
+	/**
 	 * Obtém o total de pedidos entregues
 	 * 
 	 * @return int
@@ -61,6 +80,16 @@ class MetricasPedidosService
 		return count(array_filter($this->getPedidos(), function ($pedido) {
 			return $pedido['fulfillment_status'] === 'Fully Fulfilled';
 		}));
+	}
+
+	/**
+	 * Obtém a taxa de pedidos entregues
+	 * 
+	 * @return float
+	 */
+	public function getTaxaPedidosEntregues(): float
+	{
+		return ($this->getTotalPedidosEntregues() / $this->getTotalPedidos()) * 100;
 	}
 
 	/**
@@ -143,16 +172,6 @@ class MetricasPedidosService
 	}
 
 	/**
-	 * Obtém a receita líquida
-	 * 
-	 * @return float
-	 */
-	public function getReceitaLiquida(): float
-	{
-		return $this->getTotalReceita() - $this->getTotalReembolsos();
-	}
-
-	/**
 	 * Obtém a taxa de reembolso (percentual de pedidos reembolsados)
 	 * 
 	 * @return float
@@ -168,5 +187,54 @@ class MetricasPedidosService
 		$pedidosReembolsados = $this->getTotalPedidosReembolsados();
 
 		return ($pedidosReembolsados / $totalPedidos) * 100;
+	}
+
+	/**
+	 * Obtém o total de reembolsos em USD
+	 * 
+	 * @return string
+	 */
+	public function getTotalReembolsosUSD(): string
+	{
+		return '$ ' . number_format($this->getTotalReembolsos(), 2, '.', ',');
+	}
+
+	/**
+	 * Obtém o total de reembolsos em BRL
+	 * 
+	 * @return string
+	 */
+	public function getTotalReembolsosBRL(): string
+	{
+		return 'R$ ' . number_format($this->getTotalReembolsos() * config('app.cotacao_dolar'), 2, ',', '.');
+	}
+
+	/**
+	 * Obtém a receita líquida
+	 * 
+	 * @return float
+	 */
+	public function getReceitaLiquida(): float
+	{
+		return $this->getTotalReceita() - $this->getTotalReembolsos();
+	}
+
+	/**
+	 * Obtém a receita líquida em USD
+	 * 
+	 * @return string
+	 */
+	public function getReceitaLiquidaUSD(): string
+	{
+		return '$ ' . number_format($this->getReceitaLiquida(), 2, '.', ',');
+	}
+	/**
+	 * Obtém a receita líquida em BRL
+	 * 
+	 * @return string
+	 */
+	public function getReceitaLiquidaBRL(): string
+	{
+		return 'R$ ' . number_format($this->getReceitaLiquida() * config('app.cotacao_dolar'), 2, ',', '.');
 	}
 }
