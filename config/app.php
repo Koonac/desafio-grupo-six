@@ -124,4 +124,5 @@ return [
     ],
 
     'cotacao_dolar' => env('COTACAO_DOLAR', 5.40),
+    'grupo_six_api_url' => env('GRUPO_SIX_API_URL', 'https://dev-crm.ogruposix.com/candidato-teste-pratico-backend-dashboard/test-orders'),
 ];

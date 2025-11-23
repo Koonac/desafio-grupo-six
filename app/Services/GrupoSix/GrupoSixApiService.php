@@ -10,11 +10,6 @@ use Exception;
 class GrupoSixApiService
 {
 	/**
-	 * URL base da API Cartpanda
-	 */
-	private const API_URL = 'https://dev-crm.ogruposix.com/candidato-teste-pratico-backend-dashboard/test-orders';
-
-	/**
 	 * Tempo de cache padrão em minutos
 	 */
 	private const CACHE_TTL = 60; // 1 hora
@@ -42,11 +37,11 @@ class GrupoSixApiService
 				return $this->getCache();
 			}
 
-			Log::info('GrupoSixApiService: Fazendo requisição à API', ['url' => self::API_URL]);
+			Log::info('GrupoSixApiService: Fazendo requisição à API', ['url' => config('app.grupo_six_api_url')]);
 
 			$response = Http::timeout(30)
 				->retry(3, 100) // 3 tentativas com 100ms de delay entre elas
-				->get(self::API_URL);
+				->get(config('app.grupo_six_api_url'));
 
 			// Verifica se a requisição foi bem-sucedida
 			if (!$response->successful()) {
