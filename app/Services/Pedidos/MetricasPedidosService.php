@@ -312,4 +312,122 @@ class MetricasPedidosService
 	{
 		return 'R$ ' . number_format($this->getTicketMedio() * config('app.cotacao_dolar'), 2, ',', '.');
 	}
+
+	/**
+	 * Obtém as vendas por dia da semana
+	 * 
+	 * @return array
+	 */
+	public function getVendasPorDiaDaSemana(): array
+	{
+		$vendasPorDiaDaSemana = [];
+		$diasDaSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+		$vendasPorHorario = [];
+
+		// Inicializa todos os horários de 0 a 23
+		for ($hora = 0; $hora < 24; $hora++) {
+			$vendasPorHorario[$hora] = [
+				'hora' => $hora,
+				'label' => sprintf('%02d:00', $hora),
+				'qtdeVendas' => 0,
+				'valorVendas' => 0,
+			];
+		}
+
+		/* Inicializa as vendas por dia da semana */
+		foreach ($diasDaSemana as $index => $diaDaSemana) {
+			$vendasPorDiaDaSemana[$index] = [
+				'diaDaSemana' => $diaDaSemana,
+				'qtdeVendas' => 0,
+				'valorVendas' => 0,
+				'horas' => $vendasPorHorario
+			];
+		}
+
+		foreach ($this->getPedidos() as $pedido) {
+			$diaDaSemana = date('w', strtotime($pedido['created_at']));
+			$horaDoDia = date('H', strtotime($pedido['created_at']));
+
+			$vendasPorDiaDaSemana[$diaDaSemana]['qtdeVendas']++;
+			$vendasPorDiaDaSemana[$diaDaSemana]['valorVendas'] += $pedido['local_currency_amount'];
+
+			$vendasPorDiaDaSemana[$diaDaSemana]['horas'][$horaDoDia]['qtdeVendas']++;
+			$vendasPorDiaDaSemana[$diaDaSemana]['horas'][$horaDoDia]['valorVendas'] += $pedido['local_currency_amount'];
+		}
+
+		return $vendasPorDiaDaSemana;
+	}
+
+	/**
+	 * Obtém o melhor dia da semana
+	 * 
+	 * @return array
+	 */
+	public function getMelhorDiaDaSemana(): array
+	{
+		/* CALCULANDO MELHOR DIA DA SEMANA */
+		$melhorDiaDaSemana = $this->getVendasPorDiaDaSemana();
+
+		/* Ordena as vendas por dia da semana */
+		usort($melhorDiaDaSemana, function ($a, $b) {
+			return $b['qtdeVendas'] - $a['qtdeVendas'];
+		});
+
+		/* Retorna o melhor dia da semana */
+		$melhorDiaDaSemana = $melhorDiaDaSemana[0];
+		$melhorHorario = $melhorDiaDaSemana['horas'];
+
+		/* Ordena as horas por dia da semana */
+		usort($melhorHorario, function ($a, $b) {
+			return $b['qtdeVendas'] - $a['qtdeVendas'];
+		});
+
+		/* Retorna o melhor horário */
+		$melhorDiaDaSemana['melhorHorario'] = $melhorHorario[0];
+
+		return $melhorDiaDaSemana;
+	}
+
+	/**
+	 * Obtém o melhor horário
+	 * 
+	 * @return array
+	 */
+	public function getVendasPorHorario(): array
+	{
+		$vendasPorHorario = [];
+
+		// Inicializa todos os horários de 0 a 23
+		for ($hora = 0; $hora < 24; $hora++) {
+			$vendasPorHorario[$hora] = [
+				'hora' => $hora,
+				'label' => sprintf('%02d:00', $hora),
+				'qtdeVendas' => 0,
+				'valorVendas' => 0,
+			];
+		}
+
+		foreach ($this->getPedidos() as $pedido) {
+			$hora = date('H', strtotime($pedido['created_at']));
+
+			$vendasPorHorario[$hora]['qtdeVendas']++;
+			$vendasPorHorario[$hora]['valorVendas'] += $pedido['local_currency_amount'];
+		}
+
+		return $vendasPorHorario;
+	}
+
+	/**
+	 * Obtém o melhor horário
+	 * 
+	 * @return array
+	 */
+	public function getMelhorHorario(): array
+	{
+		$vendasPorHorario = $this->getVendasPorHorario();
+		usort($vendasPorHorario, function ($a, $b) {
+			return $b['qtdeVendas'] - $a['qtdeVendas'];
+		});
+		return $vendasPorHorario[0];
+	}
 }

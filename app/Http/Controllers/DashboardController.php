@@ -62,6 +62,12 @@ class DashboardController extends Controller
 		$ticketMedioUSD = $this->metricasPedidosService->getTicketMedioUSD();
 		$ticketMedioBRL = $this->metricasPedidosService->getTicketMedioBRL();
 
+		/* MÉTRICAS AVANÇADAS */
+		$vendasPorDiaDaSemana = $this->metricasPedidosService->getVendasPorDiaDaSemana();
+		$melhorDiaDaSemana = $this->metricasPedidosService->getMelhorDiaDaSemana();
+		$vendasPorHorario = $this->metricasPedidosService->getVendasPorHorario();
+		$melhorHorario = $this->metricasPedidosService->getMelhorHorario();
+
 		return view('dashboard', compact(
 			'pedidos',
 			'totalPedidos',
@@ -79,14 +85,20 @@ class DashboardController extends Controller
 			'receitaLiquidaBRL',
 			'produtoMaisVendido',
 			'produtoMaisFaturado',
-			
+
 			/* MÉTRICAS INTERMEDIÁRIAS */
 			'top5ProdutosMaisFaturados',
 			'faturamentoVariacoesPorProdutos',
 			'top10VendasCidades',
 			'pedidosEntreguesReembolsados',
 			'ticketMedioUSD',
-			'ticketMedioBRL'
+			'ticketMedioBRL',
+
+			/* MÉTRICAS AVANÇADAS */
+			'vendasPorDiaDaSemana',
+			'melhorDiaDaSemana',
+			'vendasPorHorario',
+			'melhorHorario',
 		));
 	}
 }

@@ -193,9 +193,14 @@
             {{-- TOP 10 CIDADES EM VENDAS --}}
             <x-charts.top-10-cidades :cidades="$top10VendasCidades" />
 
+            {{-- ANÁLISE TEMPORAL DE VENDAS --}}
+            <x-charts.vendas-temporais :vendasPorDiaDaSemana="$vendasPorDiaDaSemana" :melhorDiaDaSemana="$melhorDiaDaSemana" />
+
+            {{-- VENDAS POR HORÁRIO --}}
+            <x-charts.vendas-por-horario :vendasPorHorario="$vendasPorHorario" :melhorHorario="$melhorHorario" />
+
             {{-- FATURAMENTO POR VARIANTE --}}
             <x-charts.faturamento-variantes :produtos="$faturamentoVariacoesPorProdutos" />
-
         </main>
     </div>
 @endsection
