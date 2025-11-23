@@ -9,7 +9,7 @@
                 </path>
             </svg>
         </div>
-        <h2 class="text-2xl sm:text-3xl font-bold text-white">Faturamento por Variante</h2>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white">Faturamento por Variantes</h2>
     </div>
 
     @if (count($produtos) > 0)

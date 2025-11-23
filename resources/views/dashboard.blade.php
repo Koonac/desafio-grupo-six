@@ -166,11 +166,15 @@
                 </div>
             </div>
 
-            {{-- GRÁFICOS --}}
+            {{-- TOP 5 PRODUTOS MAIS FATURADOS --}}
             <x-charts.top-5-produtos :produtos="$top5ProdutosMaisFaturados" />
+
+            {{-- TOP 10 CIDADES EM VENDAS --}}
+            <x-charts.top-10-cidades :cidades="$top10VendasCidades" />
 
             {{-- FATURAMENTO POR VARIANTE --}}
             <x-charts.faturamento-variantes :produtos="$faturamentoVariacoesPorProdutos" />
+
         </main>
     </div>
 @endsection
