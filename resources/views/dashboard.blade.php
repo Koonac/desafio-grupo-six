@@ -88,7 +88,7 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="md:col-span-2">
-                        <h3 class="text-xl sm:text-2xl font-bold text-yellow-300 mb-2">{{ $produtoMaisVendido['title']}}</h3>
+                        <h3 class="text-xl sm:text-2xl font-bold text-yellow-300 mb-2">{{ $produtoMaisVendido['name']}}</h3>
                         <p class="text-sm text-white/60 mb-4">SKU: {{ $produtoMaisVendido['sku']}}</p>
                     </div>
                     <div class="space-y-4">
@@ -118,7 +118,7 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="md:col-span-2">
-                        <h3 class="text-xl sm:text-2xl font-bold text-green-300 mb-2">{{ $produtoMaisFaturado['title']}}</h3>
+                        <h3 class="text-xl sm:text-2xl font-bold text-green-300 mb-2">{{ $produtoMaisFaturado['name']}}</h3>
                         <p class="text-sm text-white/60 mb-4">SKU: {{ $produtoMaisFaturado['sku']}}</p>
                     </div>
                     <div class="space-y-4">
@@ -136,6 +136,8 @@
                 </div>
             </div>
         </div>
+
+		<x-charts.top-5-produtos :produtos="$top5ProdutosMaisFaturados" />
     </main>
 </div>
 @endsection

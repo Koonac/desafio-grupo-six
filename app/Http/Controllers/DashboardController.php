@@ -36,6 +36,7 @@ class DashboardController extends Controller
 	 */
 	public function index(): View
 	{
+		/* MÉTRICAS PRINCIPAIS */
 		$pedidos = $this->metricasPedidosService->getPedidos();
 		$totalPedidos = $this->metricasPedidosService->getTotalPedidos();
 		$totalReceitaUSD = $this->metricasPedidosService->getTotalReceitaUSD();
@@ -53,6 +54,14 @@ class DashboardController extends Controller
 		$produtoMaisVendido = $this->metricasProdutosPedidosService->getProdutoMaisVendido();
 		$produtoMaisFaturado = $this->metricasProdutosPedidosService->getProdutoMaisFaturado();
 
+		/* MÉTRICAS INTERMEDIÁRIAS */
+		$top5ProdutosMaisFaturados = $this->metricasProdutosPedidosService->getTop5ProdutosMaisFaturados();
+		$variantsProdutos = $this->metricasProdutosPedidosService->getVariantsProdutos();
+		$top10VendasCidades = $this->metricasPedidosService->getTop10VendasCidades();
+		$pedidosEntreguesReembolsados = $this->metricasPedidosService->getPedidosEntreguesReembolsados();
+		$ticketMedioUSD = $this->metricasPedidosService->getTicketMedioUSD();
+		$ticketMedioBRL = $this->metricasPedidosService->getTicketMedioBRL();
+
 		return view('dashboard', compact(
 			'pedidos',
 			'totalPedidos',
@@ -69,7 +78,14 @@ class DashboardController extends Controller
 			'receitaLiquidaUSD',
 			'receitaLiquidaBRL',
 			'produtoMaisVendido',
-			'produtoMaisFaturado'
+			'produtoMaisFaturado',
+			/* MÉTRICAS INTERMEDIÁRIAS */
+			'top5ProdutosMaisFaturados',
+			'variantsProdutos',
+			'top10VendasCidades',
+			'pedidosEntreguesReembolsados',
+			'ticketMedioUSD',
+			'ticketMedioBRL'
 		));
 	}
 }

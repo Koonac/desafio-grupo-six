@@ -108,16 +108,6 @@ class GrupoSixApiService
 	/**
 	 * Limpa o cache dos pedidos
 	 * 
-	 * @return bool
-	 */
-	public function clearCache(): bool
-	{
-		return Cache::forget(self::CACHE_KEY);
-	}
-
-	/**
-	 * Limpa o cache dos pedidos
-	 * 
 	 * @return array
 	 */
 	public function getCache(): array

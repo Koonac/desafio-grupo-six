@@ -237,4 +237,79 @@ class MetricasPedidosService
 	{
 		return 'R$ ' . number_format($this->getReceitaLiquida() * config('app.cotacao_dolar'), 2, ',', '.');
 	}
+
+
+	/**
+	 * Obtém as top 10 cidades de vendas
+	 * 
+	 * @return array
+	 */
+	public function getTop10VendasCidades(): array
+	{
+		$cidades = [];
+		foreach ($this->getPedidos() as $pedido) {
+			$cidade = $pedido['shipping_address']['city'];
+
+			if (!isset($cidades[$cidade])) {
+				$cidades[$cidade] = [
+					'name' => $cidade,
+					'quantity' => 0,
+					'price' => 0
+				];
+			}
+
+			$cidades[$cidade]['quantity']++;
+			$cidades[$cidade]['price'] += $pedido['local_currency_amount'];
+		}
+
+		// Ordena as cidades por faturamento
+		usort($cidades, function ($a, $b) {
+			return $b['quantity'] - $a['quantity'];
+		});
+
+		return array_slice($cidades, 0, 10);
+	}
+
+	/**
+	 * Obtém os pedidos entregues e reembolsados
+	 * 
+	 * @return array
+	 */
+	public function getPedidosEntreguesReembolsados(): array
+	{
+		$pedidosEntreguesReembolsados = array_filter($this->getPedidos(), function ($pedido) {
+			return $pedido['fulfillment_status'] === 'Fully Fulfilled' && $this->isPedidoReembolsado($pedido);
+		});
+		return $pedidosEntreguesReembolsados;
+	}
+
+	/**
+	 * Obtém o ticket médio
+	 * 
+	 * @return float
+	 */
+	public function getTicketMedio(): float
+	{
+		return $this->getTotalReceita() / $this->getTotalPedidos();
+	}
+
+	/**
+	 * Obtém o ticket médio em USD
+	 * 
+	 * @return string
+	 */
+	public function getTicketMedioUSD(): string
+	{
+		return '$ ' . number_format($this->getTicketMedio(), 2, '.', ',');
+	}
+
+	/**
+	 * Obtém o ticket médio em BRL
+	 * 
+	 * @return string
+	 */
+	public function getTicketMedioBRL(): string
+	{
+		return 'R$ ' . number_format($this->getTicketMedio() * config('app.cotacao_dolar'), 2, ',', '.');
+	}
 }
