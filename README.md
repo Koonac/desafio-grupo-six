@@ -8,6 +8,45 @@ O sistema processa dados de pedidos da API, calcula métricas financeiras (recei
 
 ---
 
+## ✅ Checklist de Funcionalidades
+
+### Setup
+
+-   [x] Criar projeto Laravel
+-   [x] Testar conexão com API
+-   [x] Configurar cache
+
+### Básico (Obrigatório)
+
+-   [x] Total de pedidos
+-   [x] Receita total
+-   [x] Pedidos entregues
+-   [x] Clientes únicos
+-   [x] Resumo financeiro
+-   [x] Taxa de reembolso
+-   [x] Produto mais vendido
+-   [x] Tabela de pedidos
+
+### Intermediário (Escolha 3-4)
+
+-   [x] Top 5 produtos
+-   [ ] Análise de upsell - (Não entendi, precisaria de um bate-papo para entender melhor o requisito)
+-   [x] Faturamento por variante
+-   [x] Top 10 cidades
+-   [x] Pedidos Entregues x Reembolsados
+-   [x] Ticket médio
+-   [ ] Conversão por forma de pagamento
+
+### Avançado (Escolha 1-2)
+
+-   [x] Vendas ao longo do tempo
+-   [x] Produtos com alta taxa de reembolso - (O campo necessário parece estar vindo incorreto, consegui contornar, mas pode ser que a informação não seja 100% precisa)
+-   [ ] Motivo Reembolso
+-   [ ] Mapa de Reembolso
+-   [ ] Distribuição Geográfica de Vendas
+
+---
+
 ## 🛠️ Tecnologias Utilizadas
 
 ### Backend
