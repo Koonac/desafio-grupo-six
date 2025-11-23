@@ -6,9 +6,12 @@
     <div
         class="flex flex-col items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
         <main class="flex flex-col w-full gap-8">
-            <div class="flex items-center justify-between">
+            <div class="flex flex-col md:flex-row items-center justify-between">
                 <h1 class="text-3xl sm:text-4xl font-bold text-white">Dashboard</h1>
-                <x-button text="Ver Pedidos →" href="{{ route('pedidos') }}" />
+                <div class="flex items-end justify-end gap-2">
+                    <x-button text="Forçar Atualização" href="{{ route('dashboard.refresh') }}" />
+                    <x-button text="Ver Pedidos →" href="{{ route('pedidos') }}" />
+                </div>
             </div>
 
             {{-- ALERTA: PEDIDOS ENTREGUES E REEMBOLSADOS --}}
@@ -189,7 +192,7 @@
 
             {{-- TOP 5 PRODUTOS MAIS FATURADOS --}}
             <x-charts.top-5-produtos :produtos="$top5ProdutosMaisFaturados" />
-			
+
             {{-- PRODUTOS COM ALTA TAXA DE REEMBOLSO --}}
             <x-charts.produtos-alta-taxa-reembolso :top10ProdutosComAltaTaxaDeReembolso="$top10ProdutosComAltaTaxaDeReembolso" />
 

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\GrupoSix\GrupoSixApiService;
 use App\Services\Pedidos\MetricasPedidosService;
 use App\Services\Pedidos\MetricasProdutosPedidosService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -27,6 +30,34 @@ class DashboardController extends Controller
 	) {
 		$this->metricasPedidosService = $metricasPedidosService;
 		$this->metricasProdutosPedidosService = $metricasProdutosPedidosService;
+	}
+
+	/**
+	 * Força a atualização dos pedidos da API e redireciona para o dashboard
+	 * 
+	 * @param GrupoSixApiService $grupoSixApiService
+	 * @return RedirectResponse
+	 */
+	public function refresh(GrupoSixApiService $grupoSixApiService): RedirectResponse
+	{
+		try {
+			Log::info('DashboardController: Forçando atualização dos pedidos');
+
+			// Força a atualização chamando getOrders(true)
+			$grupoSixApiService->getOrders(true);
+
+			Log::info('DashboardController: Pedidos atualizados com sucesso');
+
+			return redirect()->route('dashboard')
+				->with('success', 'Pedidos atualizados com sucesso!');
+		} catch (\Exception $e) {
+			Log::error('DashboardController: Erro ao atualizar pedidos', [
+				'message' => $e->getMessage()
+			]);
+
+			return redirect()->route('dashboard')
+				->with('error', 'Erro ao atualizar pedidos: ' . $e->getMessage());
+		}
 	}
 
 	/**
