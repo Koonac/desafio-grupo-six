@@ -67,6 +67,7 @@ class DashboardController extends Controller
 		$melhorDiaDaSemana = $this->metricasPedidosService->getMelhorDiaDaSemana();
 		$vendasPorHorario = $this->metricasPedidosService->getVendasPorHorario();
 		$melhorHorario = $this->metricasPedidosService->getMelhorHorario();
+		$top10ProdutosComAltaTaxaDeReembolso = $this->metricasProdutosPedidosService->getTop10ProdutosComAltaTaxaDeReembolso();
 
 		return view('dashboard', compact(
 			'pedidos',
@@ -99,6 +100,7 @@ class DashboardController extends Controller
 			'melhorDiaDaSemana',
 			'vendasPorHorario',
 			'melhorHorario',
+			'top10ProdutosComAltaTaxaDeReembolso',
 		));
 	}
 }

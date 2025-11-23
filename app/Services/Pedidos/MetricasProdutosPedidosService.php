@@ -41,7 +41,10 @@ class MetricasProdutosPedidosService
 		$produtos = [];
 		foreach ($this->getPedidos() as $pedido) {
 			foreach ($pedido['line_items'] as $item) {
-				$produtos[] = $item;
+				$produtos[] = [
+					...$item,
+					'is_refunded' => !empty($pedido['refunds']) && is_array($pedido['refunds']), // (ANALISAR) Verifica se o produto foi reembolsado, isso é necessário pois aparentemente o campo is_refunded não está sendo retornado corretamentepela API
+				];
 			}
 		}
 		return $produtos;
@@ -180,5 +183,68 @@ class MetricasProdutosPedidosService
 		ksort($faturamentoVariacoesPorProdutos);
 
 		return $faturamentoVariacoesPorProdutos;
+	}
+
+	/**
+	 * Verifica se um produto foi reembolsado
+	 * 
+	 * @param array $produto
+	 * @return bool
+	 */
+	private function isProdutoReembolsado(array $produto): bool
+	{
+		return $produto['is_refunded'] === true;
+	}
+
+	/**
+	 * Obtém os produtos com alta taxa de reembolso
+	 * 
+	 * @return array
+	 */
+	public function getTop10ProdutosComAltaTaxaDeReembolso(): array
+	{
+		$produtos = [];
+		$produtosReembolsados = [];
+		foreach ($this->getProdutosVendidos() as $produto) {
+
+			if (!isset($produtos[$produto['sku']])) {
+				$produtos[$produto['sku']] = [
+					'name' => $produto['name'],
+					'sku' => $produto['sku'],
+					'quantity' => 0,
+					'price' => 0,
+					'refund_quantity' => 0,
+					'refund_price' => 0,
+					'tax_refund_rate' => 0
+				];
+			}
+
+			$produtos[$produto['sku']]['quantity'] += $produto['quantity'];
+			$produtos[$produto['sku']]['price'] += $produto['local_currency_item_total_price'];
+
+			if ($this->isProdutoReembolsado($produto)) {
+				$produtos[$produto['sku']]['refund_quantity'] += $produto['quantity'];
+				$produtos[$produto['sku']]['refund_price'] += $produto['local_currency_item_total_price'];
+			}
+		}
+
+		// Calcula a taxa de reembolso para todos os produtos após agregar os dados
+		foreach ($produtos as &$produto) {
+			if ($produto['quantity'] > 0) {
+				$produto['tax_refund_rate'] = ($produto['refund_quantity'] / $produto['quantity']) * 100;
+
+				if ($produto['tax_refund_rate'] > 0) {
+					$produtosReembolsados[] = $produto;
+				}
+			}
+		}
+
+		// Ordena os produtos por taxa de reembolso
+		usort($produtosReembolsados, function ($a, $b) {
+			return $b['tax_refund_rate'] - $a['tax_refund_rate'];
+		});
+
+		// Retorna os top 10 produtos com maior taxa de reembolso
+		return array_slice($produtosReembolsados, 0, 10);
 	}
 }

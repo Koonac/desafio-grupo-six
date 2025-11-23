@@ -189,6 +189,9 @@
 
             {{-- TOP 5 PRODUTOS MAIS FATURADOS --}}
             <x-charts.top-5-produtos :produtos="$top5ProdutosMaisFaturados" />
+			
+            {{-- PRODUTOS COM ALTA TAXA DE REEMBOLSO --}}
+            <x-charts.produtos-alta-taxa-reembolso :top10ProdutosComAltaTaxaDeReembolso="$top10ProdutosComAltaTaxaDeReembolso" />
 
             {{-- TOP 10 CIDADES EM VENDAS --}}
             <x-charts.top-10-cidades :cidades="$top10VendasCidades" />
