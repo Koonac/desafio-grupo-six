@@ -135,11 +135,6 @@ Para executar o projeto em modo desenvolvimento com hot-reload:
 composer run dev
 ```
 
-Este comando inicia simultaneamente:
-
--   Servidor Laravel (`php artisan serve`)
--   Servidor Vite para hot-reload (`npm run dev`)
-
 ### Acessando o Dashboard
 
 Após iniciar o servidor, acesse:
