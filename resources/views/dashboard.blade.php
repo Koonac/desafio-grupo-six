@@ -11,6 +11,9 @@
                 <x-button text="Ver Pedidos →" href="{{ route('pedidos') }}" />
             </div>
 
+            {{-- ALERTA: PEDIDOS ENTREGUES E REEMBOLSADOS --}}
+            <x-pedidos-entregues-reembolsados-alerta :pedidos="$pedidosEntreguesReembolsados" />
+
             {{-- RESUMO FINANCEIRO --}}
             <div class="bg-white/10 border border-white/20 shadow-2xl rounded-xl p-6">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Resumo Financeiro</h2>

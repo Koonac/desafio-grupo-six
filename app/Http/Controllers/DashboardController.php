@@ -79,6 +79,7 @@ class DashboardController extends Controller
 			'receitaLiquidaBRL',
 			'produtoMaisVendido',
 			'produtoMaisFaturado',
+			
 			/* MÉTRICAS INTERMEDIÁRIAS */
 			'top5ProdutosMaisFaturados',
 			'faturamentoVariacoesPorProdutos',
