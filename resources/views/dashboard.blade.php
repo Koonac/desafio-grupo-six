@@ -61,6 +61,21 @@
                     <p class="text-xl sm:text-2xl font-bold text-white">{{ $totalReceitaBRL }} <span
                             class="text-white/60 text-sm">BRL</span></p>
                 </x-card>
+                {{-- Ticket Médio USD e BRL --}}
+                <x-card title="Ticket Médio" class="bg-purple-500/20! border-purple-500/30! hover:bg-purple-500/30!">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                        <span class="text-xs text-white/60">Valor médio por transação</span>
+                    </div>
+                    <p class="text-xl sm:text-2xl font-bold text-white">{{ $ticketMedioUSD }}
+                        <span class="text-white/60 text-sm">USD</span>
+                    </p>
+                    <p class="text-xl sm:text-2xl font-bold text-white">{{ $ticketMedioBRL }} <span
+                            class="text-white/60 text-sm">BRL</span></p>
+                </x-card>
                 {{-- Pedidos Entregues --}}
                 <x-card title="Pedidos Entregues" class="bg-yellow-500/20! border-yellow-500/30! hover:bg-yellow-500/30!">
                     <p class="text-3xl sm:text-4xl font-bold text-white mb-2">{{ $totalPedidosEntregues }}</p>
@@ -155,7 +170,8 @@
                         <div class="space-y-4">
                             <div class="bg-white/10 rounded-lg p-4 border border-white/20">
                                 <p class="text-sm text-white/60 mb-1">Quantidade Vendida</p>
-                                <p class="text-2xl sm:text-3xl font-bold text-white">{{ $produtoMaisFaturado['quantity'] }}
+                                <p class="text-2xl sm:text-3xl font-bold text-white">
+                                    {{ $produtoMaisFaturado['quantity'] }}
                                 </p>
                             </div>
                             <div class="bg-white/10 rounded-lg p-4 border border-white/20">
