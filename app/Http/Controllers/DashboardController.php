@@ -56,7 +56,7 @@ class DashboardController extends Controller
 
 		/* MÉTRICAS INTERMEDIÁRIAS */
 		$top5ProdutosMaisFaturados = $this->metricasProdutosPedidosService->getTop5ProdutosMaisFaturados();
-		$variantsProdutos = $this->metricasProdutosPedidosService->getVariantsProdutos();
+		$faturamentoVariacoesPorProdutos = $this->metricasProdutosPedidosService->getFaturamentoVariacoesPorProdutos();
 		$top10VendasCidades = $this->metricasPedidosService->getTop10VendasCidades();
 		$pedidosEntreguesReembolsados = $this->metricasPedidosService->getPedidosEntreguesReembolsados();
 		$ticketMedioUSD = $this->metricasPedidosService->getTicketMedioUSD();
@@ -81,7 +81,7 @@ class DashboardController extends Controller
 			'produtoMaisFaturado',
 			/* MÉTRICAS INTERMEDIÁRIAS */
 			'top5ProdutosMaisFaturados',
-			'variantsProdutos',
+			'faturamentoVariacoesPorProdutos',
 			'top10VendasCidades',
 			'pedidosEntreguesReembolsados',
 			'ticketMedioUSD',

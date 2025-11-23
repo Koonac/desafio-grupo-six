@@ -148,34 +148,37 @@ class MetricasProdutosPedidosService
 	 * 
 	 * @return array
 	 */
-	public function getVariantsProdutos(): array
+	public function getFaturamentoVariacoesPorProdutos(): array
 	{
-		$variants = [];
+		$faturamentoVariacoesPorProdutos = [];
+
 		foreach ($this->getProdutosVendidos() as $produto) {
-			if (!isset($variants[$produto['sku']])) {
-				$variants[$produto['sku']] = [
+			if (!isset($faturamentoVariacoesPorProdutos[$produto['title']])) {
+				$faturamentoVariacoesPorProdutos[$produto['title']] = [
 					'title' => $produto['title'], // Nome do produto pai
+					'quantity' => 0,
+					'price' => 0,
+					'variants' => [],
+				];
+			}
+			$faturamentoVariacoesPorProdutos[$produto['title']]['quantity'] += $produto['quantity'];
+			$faturamentoVariacoesPorProdutos[$produto['title']]['price'] += $produto['local_currency_item_total_price'];
+
+			if (!isset($faturamentoVariacoesPorProdutos[$produto['title']]['variants'][$produto['sku']])) {
+				$faturamentoVariacoesPorProdutos[$produto['title']]['variants'][$produto['sku']] = [
 					'variant_title' => $produto['variant_title'], // Nome da variante
 					'sku' => $produto['sku'], // SKU da variante
 					'quantity' => 0,
 					'price' => 0
 				];
 			}
-			$variants[$produto['sku']]['quantity'] += $produto['quantity'];
-			$variants[$produto['sku']]['price'] += $produto['local_currency_item_total_price'];
+			$faturamentoVariacoesPorProdutos[$produto['title']]['variants'][$produto['sku']]['quantity'] += $produto['quantity'];
+			$faturamentoVariacoesPorProdutos[$produto['title']]['variants'][$produto['sku']]['price'] += $produto['local_currency_item_total_price'];
 		}
 
 		// Ordena os produtos por nome produto pai e faturamento
-		usort($variants, function ($a, $b) {
-			// Primeiro ordena por nome do produto pai (alfabética)
-			$titleComparison = strcmp($a['title'], $b['title']);
-			if ($titleComparison !== 0) {
-				return $titleComparison;
-			}
-			// Se os títulos forem iguais, ordena por faturamento (decrescente)
-			return $b['price'] <=> $a['price'];
-		});
+		ksort($faturamentoVariacoesPorProdutos);
 
-		return $variants;
+		return $faturamentoVariacoesPorProdutos;
 	}
 }

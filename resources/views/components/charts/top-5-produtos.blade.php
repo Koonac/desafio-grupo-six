@@ -36,21 +36,20 @@
                             return null;
                         }
 
-                        // Cores do gráfico - Tons de verde do mais forte para o mais claro
+                        // Cores do gráfico
                         const backgroundColors = [
-                            'rgba(5, 150, 105, 0.8)', // Verde muito forte (teal-600)
-                            'rgba(16, 185, 129, 0.8)', // Verde forte (teal-500)
-                            'rgba(34, 197, 94, 0.8)', // Verde médio-forte (green-500)
-                            'rgba(74, 222, 128, 0.8)', // Verde médio (green-400)
-                            'rgba(134, 239, 172, 0.8)' // Verde claro (green-300)
+                            'rgba(5, 150, 105, 0.8)',
+                            'rgba(16, 185, 129, 0.8)',
+                            'rgba(34, 197, 94, 0.8)',
+                            'rgba(74, 222, 128, 0.8)',
+                            'rgba(134, 239, 172, 0.8)'
                         ];
-
                         const borderColors = [
-                            'rgba(5, 150, 105, 1)', // Verde muito forte
-                            'rgba(16, 185, 129, 1)', // Verde forte
-                            'rgba(34, 197, 94, 1)', // Verde médio-forte
-                            'rgba(74, 222, 128, 1)', // Verde médio
-                            'rgba(134, 239, 172, 1)' // Verde claro
+                            'rgba(5, 150, 105, 1)',
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(34, 197, 94, 1)',
+                            'rgba(74, 222, 128, 1)',
+                            'rgba(134, 239, 172, 1)'
                         ];
 
                         // Destrói o gráfico anterior se existir
